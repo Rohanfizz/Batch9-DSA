@@ -3,7 +3,9 @@ function factorial(n) {
     if (n == 1)
         return 1;
     //calc my ans, n = n * (n-1)!
-    var nm1f = factorial(n - 1);
-    return n * nm1f;
+    // let nm1f = factorial(n-1);
+    // return n * nm1f;
+    n *= factorial(n - 1);
+    return n;
 }
 console.log(factorial(5));
