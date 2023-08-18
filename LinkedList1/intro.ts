@@ -7,59 +7,65 @@ class ListNode {
     }
 }
 
-class LinkedList{
+class LinkedList {
     size: number;
     head: ListNode | null;
     tail: ListNode | null;
 
-    constructor(){
+    constructor() {
         this.size = 0;
         this.head = null;
         this.tail = null;
     }
-
-    display = function():void{// TC: O(N), SC: O(1)
+    getSize = function():number{
+        return this.size;
+    }
+    display = function (): void {
+        // TC: O(N), SC: O(1)
         let s = "";
         let temp = this.head;
 
-        while(temp!= null){
-            s += temp.val+" -> ";
+        while (temp != null) {
+            s += temp.val + " -> ";
             temp = temp.next;
         }
-        console.log(s+"null");
-    }
+        console.log(s + "null");
+    };
 
-    addLast = function(val : number) : void{ // TC: O(1), SC:O(1)
+    addLast = function (val: number): void {
+        // TC: O(1), SC:O(1)
         let nn = new ListNode(val);
-        if(this.size == 0){
+        if (this.size == 0) {
             this.head = nn;
             this.tail = nn;
-        }else{
+        } else {
             this.tail.next = nn;
             this.tail = nn;
         }
         this.size++;
-    }
+    };
 
-    addFirst = function(val:number):void{//Tc: O(1), Sc: O(1)
+    addFirst = function (val: number): void {
+        //Tc: O(1), Sc: O(1)
         let nn = new ListNode(val);
 
-        if(this.size == 0){
+        if (this.size == 0) {
             this.head = nn;
             this.tail = nn;
-        }else{
+        } else {
             nn.next = this.head;
             this.head = nn;
         }
-        
-        this.size++;
-    }
 
-    removeFirst = function() : number{//Tc: O(1), Sc:O(1)
-        if(this.size == 0){
+        this.size++;
+    };
+
+    removeFirst = function (): number {
+        //Tc: O(1), Sc:O(1)
+        if (this.size == 0) {
             console.log("Linkedlist is already empty!");
             return -1; // we did not delete anything
-        }else if(this.size == 1){
+        } else if (this.size == 1) {
             let ret = this.head.val;
 
             this.head = null;
@@ -67,19 +73,21 @@ class LinkedList{
             this.size--;
 
             return ret;
-        }else{ // size > 1
+        } else {
+            // size > 1
             let ret = this.head.val;
             this.head = this.head.next;
             this.size--;
             return ret;
         }
-    }
+    };
 
-    removeLast = function() : number { // Tc : O(N) , Sc: O(1)
-        if(this.size == 0){
+    removeLast = function (): number {
+        // Tc : O(N) , Sc: O(1)
+        if (this.size == 0) {
             console.log("Linkedlist is already empty!");
             return -1; // we did not delete anything
-        }else if(this.size == 1){
+        } else if (this.size == 1) {
             let ret = this.head.val;
 
             this.head = null;
@@ -87,12 +95,13 @@ class LinkedList{
             this.size--;
 
             return ret;
-        }else{ // size > 1
-            let ret = this.tail.val;//this value is about to get deleted
+        } else {
+            // size > 1
+            let ret = this.tail.val; //this value is about to get deleted
 
             let temp = this.head;
 
-            while(temp.next != this.tail){
+            while (temp.next != this.tail) {
                 temp = temp.next;
             }
             //Now temp is standing on secondlast node
@@ -102,35 +111,74 @@ class LinkedList{
 
             return ret;
         }
-    }
+    };
 
-    getAt = function (target:number) : ListNode | null{
-        if(target<0 || target >= this.size){
+    getAt = function (target: number): ListNode | null {
+        if (target < 0 || target >= this.size) {
             return null;
         }
-    
-        let temp :ListNode | null= this.head;
+
+        let temp: ListNode | null = this.head;
         let i = 0;
 
-        while(i<target){
+        while (i < target) {
             temp = temp.next;
             i++;
         }
 
         return temp;
-    }
+    };
+
+    addAt = function (val: number, idx: number) {
+        if (idx == 0) {
+            this.addFirst(val);
+            return;
+        } else if (idx == this.size) {
+            this.addLast(val);
+            return;
+        } else if (idx < 0 || idx > this.size) {
+            console.log("Invalid Index!");
+            return;
+        }
+
+        let prev = this.getAt(idx - 1);
+        let curr = this.getAt(idx);
+
+        let nn = new ListNode(val);
+        prev.next = nn;
+        nn.next = curr;
+
+        this.size++;
+    };
+
+    removeAt = function (idx: number): number {
+        if(idx == 0){
+            return this.removeFirst();
+        }else if(idx == this.size-1){
+            return this.removeLast();
+        }else if(idx < 0 || idx >= this.size){
+            console.log("Invalid Index!");
+            return -1;
+        }
+        let prev = this.getAt(idx-1);
+        let curr = prev.next;
+        let ret = curr.val;
+
+        prev.next = curr.next;
+        this.size--;
+        return ret;
+    };
+
 }
 
-
 let ll = new LinkedList();
-ll.addLast(10);
-ll.addLast(200);
-ll.addLast(30);
-ll.addLast(40);
-ll.addLast(50);
 
-// console.log(ll.removeFirst()); // 20
-// console.log(ll.removeLast()); // 10
-console.log(ll.getAt(2).val);
+ll.addLast(1);
+ll.addLast(6);
+ll.addLast(3);
+ll.addLast(4);
+ll.addLast(7);
 
-ll.display();//5->
+ll.addAt(40, 3);
+ll.removeAt(4);
+ll.display(); //5->
