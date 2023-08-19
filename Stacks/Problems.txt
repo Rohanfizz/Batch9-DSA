@@ -1,0 +1,23 @@
+Next Greater Element on right
+Next Greater Element 2
+Daily Temperatures
+Stock Span Problem
+maximum difference between left and right smaller
+Largest Rectangular Area Histogram
+maximu size binary matrix containing 1
+Valid Parentheses
+Length of longest valid substring
+Count of duplicate Parentheses
+Minimum Number of bracket reversal
+Minimum Add To make Parentheses Valid
+Asteroid Collision
+Backspace String Compare
+Remove K digits From number
+Gas Station
+Car fleet
+First negative Integer in k sized window
+Print Binary Number
+Maximum sum of smallest and second smallest
+K reverse in a queue
+Validate Stack
+Min Stack
